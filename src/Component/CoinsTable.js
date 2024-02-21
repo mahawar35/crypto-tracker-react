@@ -94,6 +94,7 @@ import { Container,
           Cryptocurrency Prices by Market Cap
         </Typography>
         <TextField
+          className='coin-table-input'
           label="Search For a Crypto Currency.."
           variant="outlined"
           style={{ marginBottom: 20, width: "100%" }}

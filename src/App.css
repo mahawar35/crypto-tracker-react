@@ -75,4 +75,10 @@ a {
 .curr-select .MuiSvgIcon-root {
   color: #fff;
 }
+.coin-table-input .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.23);
+}
+.coin-table-input:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #fff !important;
+}
 /* override makstyle css   */
