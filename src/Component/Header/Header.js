@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Container, ThemeProvider, Toolbar, Typography, createTheme, Select, MenuItem } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { CryptoState } from '../../CryptoContext';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   title : {
     flex: 1,
@@ -37,15 +38,17 @@ const Header = () => {
               variant="h6"
               className={classes.title}
             >
-              Crypto Hunter
+              <Link to={`/`}>Crypto Hunter</Link>
+              
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
             <Select
+              className='curr-select'
               variant="outlined"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={currency}
-              style={{ width: 100, height: 40, marginLeft: 15, color: 'white' }}
+              style={{ width: 100, height: 40, marginLeft: 15, color: 'white', border : '1px solid #fff' }}
               onChange={(e) => setCurrency(e.target.value)}
             >
               <MenuItem value={"USD"}>USD</MenuItem>

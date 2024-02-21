@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
 import { HistoricalChart } from '../config/api';
-import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/styles';
 import { ThemeProvider } from '@emotion/react';
 import { CircularProgress, createTheme } from '@mui/material';
 import { Line } from 'react-chartjs-2';
@@ -12,23 +12,23 @@ import SelectButton from './SelectButton';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    width: "75%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    padding: 40,
-  //   [theme.breakpoints.down("md")]: {
-  //     width: "100%",
-  //     marginTop: 0,
-  //     padding: 20,
-  //     paddingTop: 0,
-  //   },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   container: {
+//     width: "75%",
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     marginTop: 25,
+//     padding: 40,
+//   //   [theme.breakpoints.down("md")]: {
+//   //     width: "100%",
+//   //     marginTop: 0,
+//   //     padding: 20,
+//   //     paddingTop: 0,
+//   //   },
+//   },
+// }));
 
 const CoinInfo = ({coin}) => {
 
@@ -36,17 +36,16 @@ const CoinInfo = ({coin}) => {
     const [days, setDays] = useState(1);
     const { currency } = CryptoState();
     const [flag,setflag] = useState(false);
-    const classes = useStyles();
+    // const classes = useStyles();
 
     const fetchhistoricData = async () => {
       
         const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
         setflag(true);
       
-        setTimeout(() => {
+        // setTimeout(() => {
           setHistoricData(data.prices);
-        },3000)
-        
+        // },200)
         
     }
     useEffect(() => {
@@ -66,7 +65,7 @@ const CoinInfo = ({coin}) => {
      
   return (
     <ThemeProvider theme={darkTheme}>
-    <div className={classes.container}>
+    <div className="coin-container">
       {!historicData | flag===false ? (
         <CircularProgress
           style={{ color: "gold" }}

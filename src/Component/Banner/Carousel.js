@@ -1,76 +1,61 @@
-import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/styles';
+
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react'
+import React, { 
+  useEffect, 
+  useState, 
+} from 'react'
 import { TrendingCoins } from '../../config/api';
 import { CryptoState } from '../../CryptoContext';
 import AliceCarousel from 'react-alice-carousel';
 import { Link } from 'react-router-dom';
 
-// const handleDragStart = (e) => e.preventDefault();
-
-export function numberWithCommas(x) {
+  export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
 const Carousel = () => {
-const myRef = useRef(null);
 const [trending, setTrending] = useState([]);
 const { currency, symbol } = CryptoState();
 
 const fetchTrendingCoins = async () => {
   const { data } = await axios.get(TrendingCoins(currency))
   setTimeout(() => {
-    console.log(data)
+    // console.log(data);
     setTrending(data);
   },1000);
-
-  // if (data.status === 429) {
-  //    console.log("error")
-  // }
 };
 
 
 
-// async function fetchTrendingCoins() {
-  
-//   const response = await fetch(TrendingCoins(currency));
-//   const data = await response.json();
-//   setTimeout(() => {
-//     setTrending(data);
-//   },1000);
-// }
-
 useEffect(() => {
-  
-  if (myRef.current) {
     fetchTrendingCoins();
-  }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[currency]);
 
-const useStyle = makeStyles({
-  carousel: {
-      height: "50%",
-      display: "flex",
-      alignItems: "center",
-    },
-    carouselItem: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      cursor: "pointer",
-      textTransform: "uppercase",
-      color: "white",
-    },
-});
-const classes = useStyle();
+// const useStyle = makeStyles({
+//   carousel: {
+//       height: "50%",
+//       display: "flex",
+//       alignItems: "center",
+//     },
+//     carouselItem: {
+//       display: "flex",
+//       flexDirection: "column",
+//       alignItems: "center",
+//       cursor: "pointer",
+//       textTransform: "uppercase",
+//       color: "white",
+//     },
+// });
+
+// const  classes  = useStyle();
 
 const items = trending.map((coin) => {
     let profit = coin?.price_change_percentage_24h >= 0;
     return (
         <Link 
-        ref={myRef} 
-        className={classes.carouselItem} to={`/coins/${coin.id}`}>
+        className="carouselItem" to={`/coins/${coin.id}`}>
             <img 
             src={coin?.image} 
             alt={coin.image}
@@ -100,7 +85,7 @@ const responsive = {
   };
 
   return (
-    <div className={classes.carousel}>
+    <div className="carousel">
         <AliceCarousel 
         mouseTracking
         infinite

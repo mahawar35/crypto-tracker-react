@@ -16,16 +16,14 @@ import { Container,
     Table,
     Paper, 
     Pagination} from '@mui/material';
-    import { makeStyles } from '@mui/styles';
+    // import { makeStyles } from '@mui/styles';
     import { useNavigate } from "react-router-dom";
 
 
-export function numberWithCommas(x) {
+  export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-
-  
   //  export default function CoinsTable() {
     const CoinsTable = () => {
   
@@ -35,24 +33,24 @@ export function numberWithCommas(x) {
     const [page, setPage] = useState(1)
     const { currency, symbol } = CryptoState();
 
-    const useStyles = makeStyles({
-      row: {
-        backgroundColor: "#16171a",
-        cursor: "pointer",
-        "&:hover": {
-          backgroundColor: "#131111",
-        },
-        fontFamily: "Montserrat",
-      },
-      pagination: {
-        "& .MuiPaginationItem-root": {
-          color: "gold",
-        },
-      },
-    });
+    // const useStyles = makeStyles({
+    //   row: {
+    //     backgroundColor: "#16171a",
+    //     cursor: "pointer",
+    //     "&:hover": {
+    //       backgroundColor: "#131111",
+    //     },
+    //     fontFamily: "Montserrat",
+    //   },
+    //   pagination: {
+    //     "& .MuiPaginationItem-root": {
+    //       color: "gold",
+    //     },
+    //   },
+    // });
 
     const navigate = useNavigate();
-    const classes = useStyles();
+    // const classes = useStyles();
 
     const darkTheme = createTheme({
       palette: {
@@ -71,16 +69,6 @@ export function numberWithCommas(x) {
         },1000);
         setLoading(false);
     }
-
-    // async function fetchCoins() {
-    //   setLoading(true);
-    //   const response = await fetch(CoinList(currency));
-    //   const data = await response.json();
-    //   setTimeout(() => {
-    //     setCoins(data);
-    //   },1000);
-    //   setLoading(false);
-    // }
 
     useEffect(() => {
       fetchCoins();
@@ -106,13 +94,12 @@ export function numberWithCommas(x) {
           Cryptocurrency Prices by Market Cap
         </Typography>
         <TextField
+          className='coin-table-input'
           label="Search For a Crypto Currency.."
           variant="outlined"
           style={{ marginBottom: 20, width: "100%" }}
           onChange={(e) => setSearch(e.target.value)}
         />
-       
-        
         <TableContainer component={Paper}>
         {loading ? ( <LinearProgress style={{ backgroundColor: "gold" }} />) : (
             <Table aria-label="simple table">
@@ -144,7 +131,7 @@ export function numberWithCommas(x) {
                   return (
                     <TableRow 
                     onClick={() => navigate(`/coins/${row.id}`)}
-                    className={classes.row}
+                    className="table-row"
                     key={row.name}>
                       <TableCell
                           component="th"
@@ -217,7 +204,8 @@ export function numberWithCommas(x) {
             display: "flex",
             justifyContent: "center",
           }}
-          classes={{ ul: classes.pagination }}
+          className='pagination'
+          // classes={{ ul: classes.pagination }}
           onChange={(_,value) => {setPage(value); window.scroll(0, 450)}} />
            </Container>
         </ThemeProvider>
