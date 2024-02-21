@@ -11,3 +11,68 @@ a {
   text-decoration: none;
   color: gold;
 }
+
+
+/* override makstyle css   */
+.carouselItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: "pointer";
+  text-transform: uppercase;
+  color: white;
+}
+.carousel {
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+.table-row {
+  background-color: #16171a;
+  cursor: pointer;
+  font-family: Montserrat;
+}
+.table-row:hover {
+  background-color: #131111;
+}
+.pagination .MuiPagination-ul button {
+  color: gold;
+}
+.pagination .MuiPaginationItem-root {
+  color: gold;
+}
+.pagination .MuiPagination-ul .MuiPaginationItem-page.Mui-selected {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+.coin-container {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  padding: 40px;
+}
+.selectbutton {
+  border: 1px solid gold;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 20;
+  padding-right: 20;
+  font-family: Montserrat;
+  cursor: pointer;
+  width: 22%;
+}
+.selectbutton:hover {
+  background-color: gold;
+  color: black;
+}
+.selectbutton.selected {
+  background-color : gold;
+  color: #131111;
+  font-weight: 600;
+}
+.curr-select .MuiSvgIcon-root {
+  color: #fff;
+}
+/* override makstyle css   */
