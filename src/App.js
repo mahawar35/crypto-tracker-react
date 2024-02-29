@@ -6,6 +6,7 @@ import './App.css';
 import Header from './Component/Header/Header';
 import HomePage from './Pages/HomePage';
 import CoinPage from './Pages/CoinPage';
+import AlertBox  from './Component/Authentication/AlertBox';
 
 
 const useStyles = makeStyles({
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/coins/:id" element={<CoinPage />} />
                 </Routes>
               </div>
+              <AlertBox />
          </BrowserRouter>
 
     </div>

@@ -3,6 +3,8 @@ import { AppBar, Container, ThemeProvider, Toolbar, Typography, createTheme, Sel
 import { makeStyles } from '@mui/styles';
 import { CryptoState } from '../../CryptoContext';
 import { Link } from 'react-router-dom';
+import AuthModal from '../Authentication/AuthModal';
+import UserSidebar from '../Authentication/UserSidebar';
 const useStyles = makeStyles({
   title : {
     flex: 1,
@@ -24,7 +26,7 @@ const darkTheme = createTheme({
 
 const Header = () => {
 
-  const {currency, setCurrency} = CryptoState();
+  const {currency, setCurrency, user} = CryptoState();
   // console.log(currency)
 
   const classes = useStyles();
@@ -54,6 +56,7 @@ const Header = () => {
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"INR"}>INR</MenuItem>
             </Select>
+             {user ? <UserSidebar /> : <AuthModal />}
           </Toolbar>
         </Container>
       </AppBar>

@@ -81,4 +81,22 @@ a {
 .coin-table-input:hover .MuiOutlinedInput-notchedOutline {
   border-color: #fff !important;
 }
+.coin-table-input .MuiInputBase-input, .coin-table-input .MuiFormLabel-root {color: #fff;}
 /* override makstyle css   */
+
+/* Auth Modal Css */
+.auth-modal .auth-box, .auth-modal .MuiPaper-root {
+  background-color: #424242;
+}
+.auth-box .MuiBox-root {
+  padding: 30px 0 0 0;
+}
+.auth-box .MuiInputBase-root .MuiInputBase-input {
+  border: 1px solid #ffffff8c;
+  color: #fff;
+}
+.auth-box .MuiTab-textColorPrimary {
+  color: #fff;
+  opacity: 0.7;
+}
+/* Auth Modal Css */

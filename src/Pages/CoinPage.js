@@ -4,10 +4,12 @@ import { CryptoState } from '../CryptoContext';
 import axios from 'axios';
 import { SingleCoin } from '../config/api';
 import { makeStyles } from '@mui/styles';
-import { LinearProgress, Typography } from '@mui/material';
+import { Button, LinearProgress, Typography } from '@mui/material';
 import ReactHtmlParser from 'html-react-parser'
 import CoinInfo from '../Component/CoinInfo';
 import { numberWithCommas } from '../Component/CoinsTable';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -68,7 +70,7 @@ const CoinPage = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [ coin, setCoin ] = useState();
-  const { currency, symbol } = CryptoState();
+  const { currency, symbol, user, watchlist, setAlert } = CryptoState();
 
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));
@@ -82,6 +84,52 @@ const CoinPage = () => {
     fetchCoin();
     // eslint-disable-next-line
   },[]);
+
+  const inWatchlist = watchlist.includes(coin?.id);
+
+  const addToWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist ? [...watchlist, coin?.id] : [coin?.id] },
+        { merge: true }
+      );
+      setAlert({
+        open: true,
+        message: `${coin.name} Added to the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  }
+
+  const removeFromWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+    try {
+      await setDoc(
+        coinRef,
+        { coins: watchlist.filter((watch) => watch !== coin?.id) },
+        { merge: true }
+      );
+      setAlert({
+        open: true,
+        message: `${coin.name} Remove from the Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: error.message,
+        type: "error",
+      });
+    }
+  }
 
   if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />
 
@@ -119,6 +167,7 @@ const CoinPage = () => {
 
           <span style={{ display: "flex" }}>
             <Typography variant="h5" className={classes.heading}>
+            
               Current Price:
             </Typography>
             &nbsp; &nbsp;
@@ -154,6 +203,21 @@ const CoinPage = () => {
               M
             </Typography>
           </span>
+           {user && (
+            <Button
+            variant="outlined"
+            style={{
+              width: "100%",
+              height: 40,
+              color : "#fff",
+              marginTop: 20,
+              backgroundColor: inWatchlist ? "#ff0000" : "#EEBC1D",
+            }}
+            onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
+          >
+           {inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"} 
+            </Button>
+           )}
         </div>
       </div>
          <CoinInfo coin={coin} />

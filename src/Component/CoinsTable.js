@@ -1,6 +1,6 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
-import { CoinList } from '../config/api'
+
 import { CryptoState } from '../CryptoContext'
 import { ThemeProvider } from '@emotion/react';
 import { Container,
@@ -27,11 +27,10 @@ import { Container,
   //  export default function CoinsTable() {
     const CoinsTable = () => {
   
-    const [coins, setCoins] = useState([]);
+
     const [search, setSearch] = useState("");
-    const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1)
-    const { currency, symbol } = CryptoState();
+    const { currency, symbol, coins, loading, fetchCoins } = CryptoState();
 
     // const useStyles = makeStyles({
     //   row: {
@@ -61,14 +60,7 @@ import { Container,
       },
     });
     
-    const fetchCoins = async () => {
-        setLoading(true);
-        const { data } = await axios.get(CoinList(currency));
-        setTimeout(() => {
-          setCoins(data);
-        },1000);
-        setLoading(false);
-    }
+  
 
     useEffect(() => {
       fetchCoins();
